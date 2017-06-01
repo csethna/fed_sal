@@ -4,6 +4,7 @@ from time import sleep
 
 html_filter = re.compile('<[^<]+?>')
 LOOKUP_URL = 'https://www.federalpay.org/employees/lookup'
+GS_LOOKUP_URL = 'https://www.federalpay.org/api/calculator/GS'
 WORK_SECONDS_IN_YEAR = 60 * 60 * 40 * 52
 
 
@@ -28,16 +29,27 @@ def fetch_pay_for_name(first_name, last_name):
     # if that makes it easier to follow.
     response = json.loads(html_filter.sub('', r.content))
     # print response
-    try:
-        pay = int(response['result'][0]['pay'])
-    except ValueError:
-        print ' '.join(["Salary redacted for", first_name, last_name])
-        pay = 0
-    except IndexError:
-        print ' '.join(["Employee", first_name, last_name, "not found, please check name."])
-        pay = 0
+    pay = int(response['result'][0]['pay'])
+    # except ValueError:
+    #     print ' '.join(["Salary redacted for", first_name, last_name])
+    #     pay = 0
+    # except IndexError:
+    #     print ' '.join(["Employee", first_name, last_name, "not found, please check name."])
+    #     pay = 0
     return pay
 
+def input_grade():
+    state = raw_input("Employee state: ")
+    county = raw_input("Employee county: ")
+    grade = raw_input("Employee grade: ")
+    step = raw_input("Employee step: ")
+    return state, county, grade, step
+
+def fetch_pay_for_grade(state, county, grade, step):
+    q = requests.get(GS_LOOKUP_URL, params={'year': '2017', 'state': state, 'county': county, 'grade': grade, 'step': step, "s": 2})
+    qreponse = json.loads(html_filter.sub('', q.content))
+    pay = float(qreponse['AdjustedSalary'])
+    return pay
 
 ########################## NEW STUFF ###############################
 
@@ -48,7 +60,15 @@ while True:
         first, last = input_name()
         if not first or not last:
             break
-        total_pay.append(fetch_pay_for_name(first, last))
+        try:
+            total_pay.append(fetch_pay_for_name(first, last))
+        except ValueError, IndexError:
+            # Handle error fetching via name by falling back to fetching via general schedule
+            print "Could not find employee with that name; we can look up by grade and step..."
+            state, county, grade, step = input_grade()
+            if not state or not county or not grade or not step:
+                break
+            total_pay.append(fetch_pay_for_grade(state, county, grade, step))
         print total_pay
     except KeyboardInterrupt:
         break

@@ -18,8 +18,6 @@ def input_name():
 
         return first_name, last_name
 
-
-
 def fetch_pay_for_name(first_name, last_name):
     # Note how the params are a dictionary of key-value pairs;
     # requests will build the query params into the URL before making the request
@@ -33,9 +31,18 @@ def fetch_pay_for_name(first_name, last_name):
 
 ######### DEFINE THE FUNCTION TO LOOKUP FROM GRADE #########
 
-def fetch_pay_for_grade(first_name, last_name):
-    q = requests.get(GS_LOOKUP_URL, params={'year': '2017', 'state': state, 'county': county, 'grade': grade, 'step': step})
+def input_grade():
+    state = raw_input("Employee state: ")
+    county = raw_input("Employee county: ")
+    grade = raw_input("Employee grade: ")
+    step = raw_input("Employee step: ")
+    return state, county, grade, step
+
+def fetch_pay_for_grade(state, county, grade, step):
+    q = requests.get(GS_LOOKUP_URL, params={'year': '2017', 'state': state, 'county': county, 'grade': grade, 'step': step, "s": 2})
     qreponse = json.loads(html_filter.sub('', q.content))
+    pay = float(qreponse['AdjustedSalary'])
+    return pay
 
 ######### DEFINE THE FUNCTION TO LOOKUP FROM GRADE #########
 
