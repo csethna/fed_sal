@@ -1,5 +1,5 @@
 import falcon
-import msgpack
+import json
 
 class Resource(object): # just a regular class
     def on_get(self, req, resp): # function defines HTTP resource // on_* where * is any standard HTTP method, lowercase
