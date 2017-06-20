@@ -7,7 +7,7 @@ class Resource(object):
     def on_get(self, req, resp):
         salary = {
             'url':[
-            {'name_href' : 'https://www.federalpay.org/employees/lookup',
+            {
             'grade_href' : 'https://www.federalpay.org/api/calculator/GS'}
             ]
         }
@@ -51,26 +51,27 @@ api.add_route('/salary', pay)
 
 def input_name():
     name = []
-    first_name = input("first name:")
+    grade = input("Employee GS Grade:")
     if not first_name:
         return None, None
-    last_name = input("last name:")
+    step = input("Employee GS Step:")
     if not last_name:
         return None, None
     name.append((first_name, last_name))
     return(first_name, last_name)
 
 # Get pay for all attendees
+total_pay = []
 while True:
     try:
-        first, last = input_name()
+        grade, step = input_name()
         if not first or not last:
             break
         try:
-            total_pay.append(fetch_pay_for_name(first, last))
+            total_pay.append(on_get(grade, step))
         except ValueError, IndexError:
             # Handle error fetching via name by falling back to fetching via general schedule
-            print "Could not find employee with that name; we can look up by grade and step..."
+            print "If unsure of employee grade & step, we can look up by name..."
             state, county, grade, step = input_grade()
             if not state or not county or not grade or not step:
                 break
