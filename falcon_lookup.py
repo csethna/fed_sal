@@ -69,14 +69,14 @@ while True:
             break
         try:
             total_pay.append(on_get(grade, step))
-        except ValueError, IndexError:
+        except (ValueError, IndexError):
             # Handle error fetching via name by falling back to fetching via general schedule
-            print "If unsure of employee grade & step, we can look up by name..."
+            print("If unsure of employee grade & step, we can look up by name...")
             state, county, grade, step = input_grade()
             if not state or not county or not grade or not step:
                 break
             total_pay.append(fetch_pay_for_grade(state, county, grade, step))
-        print total_pay
+        print(total_pay)
     except KeyboardInterrupt:
         break
 # fetch_salary = on_get(attendees)

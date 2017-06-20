@@ -1,5 +1,9 @@
-class Resource(object):
+import falcon
+import json
 
+
+class Resource(object):
+### when a function is part of a class it's called a method
     def on_get(self, req, resp):
         salary = {
             'url':[
@@ -38,3 +42,13 @@ class Resource(object):
                 resp.status = falcon.HTTP_BAD_REQUEST
                 resp.content(json.dumps(response))
                 return
+
+        results = []
+        for item in input_data:
+            #make the necessary request to get the salary
+            result.append(salary)
+
+        response = {"error": None, "data": result}
+        resp.status = falcon.HTTP_OK
+        resp.data = json.dumps(result)
+        return
