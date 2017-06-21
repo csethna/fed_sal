@@ -1,0 +1,5 @@
+falcon==1.2.0
+gunicorn==19.7.1
+requests==2.18.1
+
+# pip install -r dev-requirements.txt
