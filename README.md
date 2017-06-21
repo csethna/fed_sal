@@ -1,5 +1,5 @@
 # Federal Employee Meeting Cost Tracker
-fed_sal
+`fed_sal`
 
 `salary_lookup` is a commandline tool that enables the user to track the cost of a meeting attended by federal employees.
 
