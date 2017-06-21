@@ -1,16 +1,11 @@
 import falcon
 import json
+from salary_lookup import fetch_pay_for_grade
 
 
 class Resource(object):
 ### when a function is part of a class it's called a method
     def on_get(self, req, resp):
-        salary = {
-            'url':[
-            {'name_href' : 'https://www.federalpay.org/employees/lookup',
-            'grade_href' : 'https://www.federalpay.org/api/calculator/GS'}
-            ]
-        }
 
         if 'application/json' not in req.content_type:
             response = {"error": "Only JSON data is accepted.", "data": None}
@@ -45,8 +40,9 @@ class Resource(object):
 
         results = []
         for item in input_data:
-            #make the necessary request to get the salary
-            result.append(salary)
+            pay = fetch_pay_for_grade(has_grade, has_step)
+            results.append(results)
+            print results
 
         response = {"error": None, "data": result}
         resp.status = falcon.HTTP_OK
