@@ -1,25 +1,10 @@
-import falcon
 
-api = application = falcon.API()
+def input_grade_step():
+    grade = raw_input("Employee GS Grade:")
+    step = raw_input("GS Step:")
+    grade_step = {}
+    grade_step[grade] = step
+    return grade_step
 
-
-#
-# ### total_pay = [] ### make a list containing all salaries
-#
-#         ## HOMEWORK
-#         # Fetch a salary for each user in the list
-#         # Use the bits from our commandline version to fetch a salary for each data point.
-#         # set the respose to json.dumps(the_list) and status to 200 and return
-#
-#
-# # sample_input = [
-# #     {"first": "...",
-# #      "last": "...",
-# #      "grade": "...",
-# #      "step": "..."},
-# #     {"first": "...",
-# #      "last": "...",
-# #      "grade": "...",
-# #      "step": "..."},
-# #     ...
-# # ]
+gs = input_grade_step()
+print gs

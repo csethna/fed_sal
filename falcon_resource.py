@@ -6,6 +6,11 @@ from salary_lookup import fetch_pay_for_grade
 class Resource(object):
 ### when a function is part of a class it's called a method
     def on_get(self, req, resp):
+        doc = {
+            'salary':[
+            {'grade':'step'}
+            ]
+        }
 
         if 'application/json' not in req.content_type:
             response = {"error": "Only JSON data is accepted.", "data": None}

@@ -1,2 +1,5 @@
 .fed_sal/
 *.pyc
+__pycache__
+.git/
+.DS_Store
