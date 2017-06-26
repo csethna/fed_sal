@@ -7,4 +7,3 @@ def input_grade_step():
     return grade_step
 
 gs = input_grade_step()
-print gs

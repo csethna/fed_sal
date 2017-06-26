@@ -1,10 +1,13 @@
 import falcon
+import json
 from falcon_resource import Resource
 
 api = application = falcon.API()
 
 salary = Resource()
 api.add_route('/salary', salary)
+
+#total_pay = json.dumps()
 
 
 #
