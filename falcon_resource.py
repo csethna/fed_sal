@@ -1,26 +1,12 @@
 import falcon
 import json
-import requests
-import re
-from falcon_lookup import input_grade_step
-
-GS_LOOKUP_URL = 'https://www.federalpay.org/api/calculator/GS'
-html_filter = re.compile('<[^<]+?>')
+from falcon_lookup import grade_step
 
 class Resource(object):
 ### when a function is part of a class it's called a method
     def on_get(self, req, resp):
-        gs = input_grade_step()
+        gs = grade_step()
         return
-
-    def fetch_pay_for_grade(grade, step):
-        r = requests.get(GS_LOOKUP_URL, params={'year': '2017', 'state': 'Illinois', 'county': 'Cook', 'grade': grade, 'step': step, "s": 2})
-        reponse = json.loads(html_filter.sub('', r.content))
-        pay = float(reponse['AdjustedSalary'])
-        # pay.append(fetch_pay_for_grade(**gs))
-        pay.append(fetch_pay_for_grade(on_get()))
-        return pay
-        print pay
 
         # if 'application/json' not in req.content_type:
         #     response = {"error": "Only JSON data is accepted.", "data": None}
