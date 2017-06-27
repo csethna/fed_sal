@@ -8,14 +8,14 @@ class Resource(object):
         gs = grade_step()
         return
 
-        # if 'application/json' not in req.content_type:
+        # if 'application/json' not in gs:
         #     response = {"error": "Only JSON data is accepted.", "data": None}
         #     resp.status = falcon.HTTP_UNSUPPORTED_MEDIA_TYPE
         #     resp.content(json.dumps(response))
         #     return
         #
         # try:
-        #     input_data = json.loads(req.body)
+        #     input_data = json.loads(gs)
         # except ValueError:
         #     reponse = {"error": "Could not decode JSON input.", "data": None}
         #     resp.status = falcon.HTTP_BAD_REQUEST
