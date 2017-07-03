@@ -1,1 +1,1 @@
-web: gunicorn --reload falcon_app --log-file -
+web: gunicorn --reload falcon_app:application --log-file -
