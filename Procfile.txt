@@ -1,1 +1,1 @@
-web: gunicorn falcon_app:app
+web: gunicorn falcon_app.wsgi --log-file -
