@@ -1,1 +1,1 @@
-web: gunicorn -b 0.0.0.0:$PORT falcon_app:application --log-level=DEBUG --worker-class=gevent
+web: gunicorn -b 0.0.0.0:$PORT falcon_app:app --log-level=DEBUG --worker-class=gevent
